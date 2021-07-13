@@ -1,6 +1,12 @@
 import { Container } from '@material-ui/core';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+} from 'react-router-dom';
 import React, { Component } from 'react';
 import './App.css';
+import Home from './components/Home';
 
 export interface Session {
   token: string;
@@ -18,12 +24,16 @@ export class App extends Component<{}, Session> {
 
 render() {
   return (
+    <Router>
     <Container>
-      <h1>Hello World</h1>
+      <Switch>
+        <Route path='/' exact component={Home} />
+      </Switch>
     </Container>
+    </Router>
   )
 }
 
 }
 
-export default App;
+
