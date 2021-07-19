@@ -17,9 +17,8 @@ export interface Business {
     city:      string;
     state:     string;
     zip:       string;
-    createdAt: Date;
-    updatedAt: Date;
     userId:    number;
+    loyalty_program?: LoyaltyProgram;
 }
 
 export interface User {
@@ -28,6 +27,8 @@ export interface User {
     firstName: string;
     lastName:  string;
     role:      string;
+    businessId?: number; 
+    customerId?: number;
 }
 
 export interface Session {
@@ -35,3 +36,31 @@ export interface Session {
     user?: User;
   }
   
+  export const rewardTypes = [
+    {
+      value: 1,
+      label: '$ Off',
+    },
+    {
+      value: 2,
+      label: '% Off',
+    },
+    {
+      value: 3,
+      label: 'Free Product',
+    },
+   
+  ];
+
+
+
+export interface LoyaltyProgram {
+    id:           number;
+    name:         string;
+    numOfPunches: number;
+    rewardType:   number;
+    rewardAmount: null;
+    createdAt:    Date;
+    updatedAt:    Date;
+    businessId:   number;
+}

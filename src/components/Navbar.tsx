@@ -3,6 +3,9 @@ import React, { Component } from "react";
 import { withStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import { AppBar } from "@material-ui/core";
 import { Toolbar } from "@material-ui/core";
+import { Session } from "../models/models";
+import { updateAsExpression } from "typescript";
+import { Link } from "react-router-dom";
 
 
 const styles =  (theme: Theme) =>
@@ -18,17 +21,27 @@ const styles =  (theme: Theme) =>
     },
   });
 
-  interface Props extends WithStyles<typeof styles>{ }
+  interface Props extends WithStyles<typeof styles>{
+    session: Session;
+    clearSession(): any;
+   }
 
 class Navbar extends Component<Props> {
-
+logout = () => {
+  this.props.clearSession()
+}
   render() {
       const { classes } = this.props;
     return (
         <AppBar position='static'>
           <Toolbar style={{ display: "flex", justifyItems: "end" }}>
             <div className={classes.title}></div>
-            <Button color='inherit'>Login</Button>
+            {
+              this.props.session.token ? (<Button color='inherit' onClick={this.logout}>Logout</Button>
+              ) : (<Link to='/login' style={{ textDecoration: "none" }}>
+              <Button color='primary' style={{color: '#ffffff'}}>Login</Button>
+              </Link>)
+            }
           </Toolbar>
         </AppBar>
     );

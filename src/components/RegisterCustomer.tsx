@@ -4,7 +4,14 @@ import { Typography } from "@material-ui/core";
 import * as yup from "yup";
 import { Formik, FormikProps, Form, Field, ErrorMessage } from "formik";
 import { Paper } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, RouteComponentProps, withRouter } from "react-router-dom";
+import { Session } from "../models/models";
+import APIURL from "../lib/environment";
+
+interface Props  extends RouteComponentProps{
+  updateSession(newSession: Session): any;
+
+}
 
 interface InitialState {
   firstName: string;
@@ -18,8 +25,8 @@ interface InitialState {
   password: string;
 }
 
-class RegisterCustomer extends Component<{}, InitialState> {
-  constructor(props: any) {
+class RegisterCustomer extends Component<Props, InitialState> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       firstName: "",
@@ -35,9 +42,42 @@ class RegisterCustomer extends Component<{}, InitialState> {
   }
 
   handleSubmit = (values: any, { props = this.props, setSubmitting }: any) => {
-    alert("Submitting form");
+    fetch(`${APIURL}/users/register-customer`, {
+      method: 'POST',
+      body: JSON.stringify({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        phone: values.phone,
+        street: values.street,
+        city: values.city,
+        state: values.state,
+        zip: values.zip,
+        email: values.email,
+        password: values.password
+      }),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      const session: Session = {
+        token: data.token,
+        user: {
+          id:        data.user.id,
+          email:     data.user.email,
+          firstName: data.user.firstName,
+          lastName:  data.user.lastName,
+          role:      data.user.role,
+          businessId: data.user.business?.id, 
+          customerId: data.user.customer?.id,
+        }
+      }
+      this.props.updateSession(session)
+      this.props.history.push('/customer/dashboard');
+    })
     setSubmitting(false);
-    return;
   };
 
   render() {
@@ -259,4 +299,4 @@ class RegisterCustomer extends Component<{}, InitialState> {
   }
 }
 
-export default RegisterCustomer;
+export default withRouter(RegisterCustomer);

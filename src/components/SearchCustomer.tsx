@@ -9,66 +9,53 @@ import { Session } from "../models/models";
 import APIURL from "../lib/environment";
 
 interface InitialState {
-  email: string;
-  password: string;
+  searchTerm: string,
+  results?: any[]
 }
 
 interface Props  extends RouteComponentProps{
-  updateSession(newSession: Session): any;
+  session: Session
 
 }
 
-class Login extends Component<Props, InitialState> {
+class SearchCustomer extends Component<Props, InitialState> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      email: "",
-      password: "",
+      searchTerm: ''
     };
   }
 
-  handleSubmit = (values: any, { props = this.props, setSubmitting }: any) => {
-    fetch(`${APIURL}/users/login`, {
+  handleSearch = (values: any, { props = this.props, setSubmitting }: any) => {
+    fetch(`${APIURL}/customers/search`, {
       method: 'POST',
       body: JSON.stringify({
-        email: values.email,
-        password: values.password
+        searchTerm: values.searchTerm,
       }),
       headers: new Headers({
         'Content-Type': 'application/json',
+        "Authorization": this.props.session.token
       }),
     })
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      const session: Session = {
-        token: data.token,
-        user: {
-          id:        data.user.id,
-          email:     data.user.email,
-          firstName: data.user.firstName,
-          lastName:  data.user.lastName,
-          role:      data.user.role,
-          businessId: data.user.business?.id, 
-          customerId: data.user.customer?.id,
-        }
-      }
-      this.props.updateSession(session)
-      this.props.history.push(`/${data.user.role}/dashboard`);
+      
+      this.setState({
+        searchTerm: values.searchTerm, 
+        results: data
+      })
+
     })
     setSubmitting(false);
   };
 
   render() {
     const validationSchema = yup.object().shape({
-      email: yup
+      searchTerm: yup
         .string()
-        .email("Please enter a valid email")
-        .required("Please enter an email"),
-      password: yup
-        .string()
-        .required("Please enter a password")
-        .min(8, "Password must be a minimum of 8 characters"),
+        .required("Please enter a customer name"),
+      
     });
 
     return (
@@ -78,10 +65,10 @@ class Login extends Component<Props, InitialState> {
           <Formik
             initialValues={this.state}
             validationSchema={validationSchema}
-            onSubmit={this.handleSubmit}
+            onSubmit={this.handleSearch}
             render={(formProps) => {
               const {
-                values: { email, password },
+                values: { searchTerm },
                 errors,
                 touched,
                 handleChange,
@@ -97,42 +84,24 @@ class Login extends Component<Props, InitialState> {
               return (
                 <Form style={{ padding: "40px" }}>
                   <Typography variant='h4' color='primary' gutterBottom>
-                    Login
+                    Search by customer name
                   </Typography>
-                  <Typography
-                    variant='subtitle1'
-                    color='textSecondary'
-                    style={{ paddingBottom: "30px" }}
-                  >
-                    Don't have an account?{" "}
-                    <Link to='/register'>Register here</Link>
-                  </Typography>
+
 
                   <TextField
                     style={{ paddingBottom: "20px" }}
-                    type='email'
+                    type='text'
                     variant='outlined'
-                    name='email'
-                    label='Email'
-                    helperText={touched.email ? errors.email : ""}
-                    error={touched.email && Boolean(errors.email)}
-                    value={email}
-                    onChange={change.bind(null, "email")}
+                    name='searchTerm'
+                    label='Enter customer name'
+                    helperText={touched.searchTerm ? errors.searchTerm : ""}
+                    error={touched.searchTerm && Boolean(errors.searchTerm)}
+                    value={searchTerm}
+                    onChange={change.bind(null, "searchTerm")}
                     fullWidth
                   />
 
-                  <TextField
-                    style={{ paddingBottom: "20px" }}
-                    type='password'
-                    variant='outlined'
-                    name='password'
-                    label='Create a password'
-                    helperText={touched.password ? errors.password : ""}
-                    error={touched.password && Boolean(errors.password)}
-                    value={password}
-                    onChange={change.bind(null, "password")}
-                    fullWidth
-                  />
+                  
                   <Button
                     style={{ marginBottom: "10px", padding: "10px" }}
                     size='large'
@@ -142,7 +111,7 @@ class Login extends Component<Props, InitialState> {
                     fullWidth
                     disabled={formProps.isSubmitting}
                   >
-                    Login
+                    Search
                   </Button>
                   <Link to='/' style={{ textDecoration: 'none' }}>
                     <Button
@@ -162,9 +131,17 @@ class Login extends Component<Props, InitialState> {
             }}
           />
         </Paper>
+        <div>
+          {this.state.results?.map((customer) => {
+            return(
+              <Typography>{`${customer.user.lastName}, ${customer.user.firstName}, ${customer.street}, ${customer.city}, ${customer.state}, ${customer.zip}`}</Typography>
+            )
+          })}
+        </div>
+
       </div>
     );
   }
 }
 
-export default withRouter(Login);
+export default withRouter(SearchCustomer);
