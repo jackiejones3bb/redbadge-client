@@ -134,7 +134,9 @@ class SearchCustomer extends Component<Props, InitialState> {
         <div>
           {this.state.results?.map((customer) => {
             return(
-              <Typography>{`${customer.user.lastName}, ${customer.user.firstName}, ${customer.street}, ${customer.city}, ${customer.state}, ${customer.zip}`}</Typography>
+              <>
+              <Typography>{`${customer.user.lastName}, ${customer.user.firstName}, ${customer.street}, ${customer.city}, ${customer.state}, ${customer.zip}`}</Typography> <Link to={`/business/customer-details/${customer.id}`} >Edit</Link>
+              </>
             )
           })}
         </div>

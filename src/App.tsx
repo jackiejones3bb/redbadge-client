@@ -18,6 +18,7 @@ import BusinessDashboard from './components/BusinessDashboard';
 import CustomerDashboard from './components/CustomerDashboard';
 import LoyaltyForm from './components/LoyaltyForm';
 import SearchCustomer from './components/SearchCustomer';
+import CustomerDetails from './components/CustomerDetails';
 
 
 
@@ -65,6 +66,10 @@ protectedView = (page: string, role: string) => {
     component = <SearchCustomer session={this.state} />
   }
 
+  if(page === 'customer-details') {
+    component = <CustomerDetails session={this.state} />
+  }
+
 return (this.state.token && this.state.user?.role === role) ? component : <Redirect to='/' />  //must have token and role to get access, otherwise back to home
 
 }
@@ -87,6 +92,7 @@ render() {
         <Route path='/business/loyalty-form/:id' component={() => this.protectedView('loyalty-form', 'business')} />
         <Route path='/customer/dashboard' component={() => this.protectedView('customer-dashboard', 'customer')} />
         <Route path='/customer/search' component={() => this.protectedView('customer-search', 'business')} />
+        <Route path='/business/customer-details/:id' component={() => this.protectedView('customer-details', 'business')} />
         </Container>
       </Switch>
     </div>

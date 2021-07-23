@@ -8,6 +8,8 @@ export interface Customer {
     createdAt: Date;
     updatedAt: Date;
     userId:    number;
+    user?: User;
+    businesses?: Business[]
 }
 
 export interface Business {
@@ -19,6 +21,7 @@ export interface Business {
     zip:       string;
     userId:    number;
     loyalty_program?: LoyaltyProgram;
+    memberships?: Membership;
 }
 
 export interface User {
@@ -64,3 +67,11 @@ export interface LoyaltyProgram {
     updatedAt:    Date;
     businessId:   number;
 }
+
+export interface Membership {
+    id: number;
+    customerId: number;
+    businessId: number;
+    numPunches: number;
+}
+
