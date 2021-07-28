@@ -1,4 +1,4 @@
-import { Button, Divider } from "@material-ui/core";
+import { Button, Divider, IconButton } from "@material-ui/core";
 import React, { Component } from "react";
 import { Typography } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
@@ -7,78 +7,40 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import { Link } from "react-router-dom";
 import { Business, Session } from "../models/models";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 
-interface Props 
-{
-  session: Session
-  business: Business
+interface Props {
+  session: Session;
+  business: Business;
+  add(id: number): any;
 }
 
 class BusinessCard extends Component<Props> {
-
-  
-
-
   render() {
     return (
-      <div>
-        
-        <Grid container style={{ height: "30vh" }}>
-          <Grid
-            md={12}
-            style={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-            }}
-          >
-            <Card style={{ margin: "10px", marginRight: '100px' }}>
-                <CardContent style={{ padding: "40px" }}>
-                  
-                  
-                  <Typography variant='subtitle1' gutterBottom color='primary'>
-                  {this.props.business.name}
-                  </Typography>
-                  <div>
-                  <Link to='/register-business' style={{ textDecoration: "none" }}>
-              <Button variant='contained' color='primary' size='large' style={{ marginTop: '30px'}}>
-                Register as a Business
+      <Card style={{ marginRight: "20px", marginTop: "30px", width: "450px" }}>
+        <CardContent style={{ padding: "30px" }}>
+          <div>
+            <Typography variant='h5' color='primary'>
+              {this.props.business.name}
+              <Button
+                style={{ marginLeft: "20px" }}
+                onClick={() => this.props.add(this.props.business.id)}
+              >
+                <IconButton aria-label='add'>
+                  <AddCircleOutlineIcon />
+                </IconButton>
               </Button>
-            </Link>
-                  </div>
-                  
-                </CardContent>
-              </Card>
-            
-            <Divider orientation='vertical' flexItem />
-            <Card style={{ margin: "10px", marginLeft: '100px' }}>
-                <CardContent style={{ padding: "40px" }}>
-                  
-                  <Typography variant='subtitle1' gutterBottom color='primary'>
-                    <span style={{fontWeight: 'bolder'}}>Hey there savvy shopper!</span> Do you want to start using the loYOUlty rewards program for your favorite local business? Click 'Register as a Customer' to get started!
-                  </Typography>
-                  <Link to='/register-customer' style={{ textDecoration: "none" }}>
-              <Button variant='contained' color='primary' size='large' style={{ marginTop: '30px'}}>
-                Register as a Customer
-              </Button>
-            </Link>
-                </CardContent>
-              </Card>
-            
-          </Grid>
-
-
-        </Grid>
-
-        <Link to='/' style={{ textDecoration: "none", display: 'flex', justifyContent: 'center', marginTop: '80px' }}>
-              <Button variant='outlined' color='primary' size='large'>
-                Return to Home
-              </Button>
-            </Link>
-
-        
-        
-      </div>
+            </Typography>
+            <Typography>{this.props.business.street}</Typography>
+            <Typography style={{ marginRight: "10px" }}>
+              {`${this.props.business.city}, 
+              ${this.props.business.state}  
+               ${this.props.business.zip}`}
+            </Typography>
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 }

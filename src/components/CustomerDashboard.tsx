@@ -1,4 +1,4 @@
-import { Button, Divider } from "@material-ui/core";
+import { Button, Divider, TypographyVariant } from "@material-ui/core";
 import React, { Component } from "react";
 import { Typography } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
@@ -9,91 +9,88 @@ import { Link } from "react-router-dom";
 import { Business, Customer, Session } from "../models/models";
 import APIURL from "../lib/environment";
 import BusinessCard from "./BusinessCard";
+import LoyaltyCard from "./LoyaltyCard";
 
-interface Props {session: Session}
+interface Props {
+  session: Session;
+}
 
 interface InitialState {
-  businesses?: Business[]
-  customer?: Customer
+  businesses?: Business[];
+  customer?: Customer;
 }
 
 class CustomerDashboard extends Component<Props, InitialState> {
-  
-
   getBusinessData = () => {
     fetch(`${APIURL}/business`, {
       method: "GET",
-      
+
       headers: new Headers({
         "Content-Type": "application/json",
-        "Authorization": this.props.session.token
+        Authorization: this.props.session.token,
       }),
     })
       .then((response) => response.json())
       .then((business) => {
         console.log(business);
         this.setState({
-          businesses: business
-        })
-        
+          businesses: business,
+        });
       });
-  }
+  };
 
   getCustomerData = () => {
     fetch(`${APIURL}/customers/${this.props.session.user?.customerId}`, {
       method: "GET",
-      
+
       headers: new Headers({
         "Content-Type": "application/json",
-        "Authorization": this.props.session.token
+        Authorization: this.props.session.token,
       }),
     })
       .then((response) => response.json())
       .then((customer) => {
         console.log(customer);
         this.setState({
-          customer: customer[0]
-        })
-        
+          customer: customer[0],
+        });
       });
-  }
+  };
   deleteMembership = (id: number | undefined) => {
     fetch(`${APIURL}/memberships/${id}`, {
       method: "DELETE",
-      
+
       headers: new Headers({
         "Content-Type": "application/json",
-        "Authorization": this.props.session.token
+        Authorization: this.props.session.token,
       }),
     })
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
-        this.getCustomerData()
-        
+        this.getCustomerData();
       });
-  }
+  };
 
-  addMembership = (id: number) => {
+  addMembership = (id: number | undefined) => {
     fetch(`${APIURL}/memberships`, {
       method: "POST",
       body: JSON.stringify({
         customerId: this.props.session.user?.customerId,
-        businessId: id
+        businessId: id,
       }),
-      
+
       headers: new Headers({
         "Content-Type": "application/json",
-        "Authorization": this.props.session.token
+        Authorization: this.props.session.token,
       }),
     })
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
-        this.getCustomerData()
-        
+        this.getCustomerData();
       });
-  }
+  };
 
   componentDidMount() {
     this.getCustomerData();
@@ -104,33 +101,42 @@ class CustomerDashboard extends Component<Props, InitialState> {
     return (
       <div>
         <div>
-          <div>
-            {`${this.state?.customer?.user?.firstName} ${this.state?.customer?.user?.lastName}`}
-          </div>
-          <div>
-            <h1>The new crap</h1> 
-          {
-          this.state?.customer && this.state?.customer?.businesses?.map((data) => {
-            return(
-              <div>{data.name}<Button onClick={() => this.deleteMembership(data?.memberships?.id)}>Remove</Button></div>
-            )
-          })
-        }
+          <Typography variant='h4'>
+            {`Hello, ${this.state?.customer?.user?.firstName} ${this.state?.customer?.user?.lastName}!`}
+          </Typography>
+          <Typography variant='h5' style={{ marginTop: "50px" }}>
+            You're currently enrolled in the following loyalty programs
+          </Typography>
+          <div style={{ display: "flex" }}>
+            {this.state?.customer &&
+              this.state?.customer?.businesses?.map((data) => {
+                return (
+                  <LoyaltyCard
+                    session={this.props.session}
+                    business={data}
+                    remove={this.deleteMembership}
+                  />
+                );
+              })}
           </div>
         </div>
         <div>
-          <h1>All the crap</h1>
-        {
-          this.state?.businesses && this.state?.businesses.map((data) => {
-            return(
-              <div>
-                {/* <BusinessCard session={this.props.session} business={data} /> */}
-                {data.id}
-              <button onClick={() => this.addMembership(data.id)}>Add</button></div>
-            )
-          })
-        }
-            </div>      
+          <Typography variant='h5' style={{ marginTop: "70px" }}>
+            All Available Loyalty Programs
+          </Typography>
+          <div style={{ display: "flex" }}>
+            {this.state?.businesses &&
+              this.state?.businesses.map((data) => {
+                return (
+                  <BusinessCard
+                    session={this.props.session}
+                    business={data}
+                    add={this.addMembership}
+                  />
+                );
+              })}
+          </div>
+        </div>
       </div>
     );
   }

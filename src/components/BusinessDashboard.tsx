@@ -81,11 +81,11 @@ class BusinessDashboard extends Component<Props, Business> {
             }}
           >
             <Link to={`/business/loyalty-form/${this.state.loyalty_program?.id ?? 0}`} style={{ textDecoration: "none" }} >
-            <Card style={{ margin: "10px", marginRight: "100px" }}>
+            <Card style={{ margin: "10px", marginRight: "100px", width: "500px" }}>
               <CardContent
                 style={{ padding: "40px", justifyContent: "center" }}
               >
-                <Typography variant='h5' gutterBottom color='primary'>
+                <Typography variant='h5' gutterBottom color='primary' style={{display: "flex", justifyContent: "center"}}>
                   {this.state.loyalty_program ? `UPDATE YOUR LOYALTY PROGRAM` : `CREATE A LOYALTY PROGRAM`}
                 </Typography>
                 <div
@@ -106,11 +106,11 @@ class BusinessDashboard extends Component<Props, Business> {
 
             <Divider orientation='vertical' flexItem />
             <Link to={`/customer/search`} style={{ textDecoration: "none" }} >
-            <Card style={{ margin: "10px", marginLeft: "100px" }}>
+            <Card style={{ margin: "10px", marginLeft: "100px", width: "500px" }}>
               <CardContent
                 style={{ padding: "40px", justifyContent: "center" }}
               >
-                <Typography variant='h5' gutterBottom color='primary'>
+                <Typography variant='h5' gutterBottom color='primary' style={{display: "flex", justifyContent: "center"}}>
                   SEARCH FOR A CUSTOMER
                 </Typography>
                 <div

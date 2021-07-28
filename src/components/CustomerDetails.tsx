@@ -107,30 +107,59 @@ class CustomerDetails extends Component<Props, InitialState> {
   render() {
     return (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <Paper style={{ width: "25vw" }}>
-          <div>{this.state.customer?.user?.lastName}</div>
-          <div>{this.state.membership?.numPunches}</div>
-          <div>
-            <Button
-              onClick={() => this.handleUpdatePunches(1)}
-              variant='contained'
-              color='primary'
-              size='large'
-              style={{ marginTop: "30px" }}
-            >
-              Add A Punch
-            </Button>
-          </div>
-          <div>
-            <Button
-              onClick={() => this.handleUpdatePunches(-1)}
-              variant='contained'
-              color='primary'
-              size='large'
-              style={{ marginTop: "30px" }}
-            >
-              Delete A Punch
-            </Button>
+        <Paper
+          style={{
+            display: "block",
+            justifyContent: "center",
+            margin: "40px",
+            width: "25vw",
+            padding: "40px",
+          }}
+        >
+          <Typography variant="h4">
+            {this.state.customer?.user?.firstName}{" "}
+            {this.state.customer?.user?.lastName}
+          </Typography>
+          <Typography variant="h5" style={{marginTop: "20px"}}>
+            Current number of punches: {this.state.membership?.numPunches}
+          </Typography>
+          <div style={{ display: "flex" }}>
+            <div>
+              <Button
+                onClick={() => this.handleUpdatePunches(1)}
+                variant='contained'
+                color='primary'
+                size='large'
+                style={{ marginTop: "40px", marginRight: "10px" }}
+              >
+                Add A Punch
+              </Button>
+            </div>
+            <div>
+              <Button
+                onClick={() => this.handleUpdatePunches(-1)}
+                variant='contained'
+                color='primary'
+                size='large'
+                style={{ marginTop: "40px", marginRight: "10px" }}
+              >
+                Delete A Punch
+              </Button>
+            </div>
+            <div>
+            <Link to='/business/dashboard' style={{ textDecoration: "none", display: 'flex', justifyContent: 'center', marginTop: '40px', marginRight: "10px" }}>
+              <Button variant='outlined' color='primary' size='large'>
+                Cancel
+              </Button>
+            </Link>
+            </div>
+            <div>
+            <Link to='/business/dashboard' style={{ textDecoration: "none", display: 'flex', justifyContent: 'center', marginTop: '40px' }}>
+              <Button variant='outlined' color='primary' size='large'>
+                Return to home
+              </Button>
+            </Link>
+            </div>
           </div>
         </Paper>
       </div>

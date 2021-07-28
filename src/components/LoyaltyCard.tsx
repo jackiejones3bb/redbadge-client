@@ -1,4 +1,4 @@
-import { Button, Divider } from "@material-ui/core";
+import { Button, Divider, IconButton, Paper } from "@material-ui/core";
 import React, { Component } from "react";
 import { Typography } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
@@ -6,82 +6,49 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import { Link } from "react-router-dom";
-import { Session } from "../models/models";
+import { Business, Session } from "../models/models";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import Container from "@material-ui/core/Container";
 
-interface Props {session: Session}
+interface Props {
+  session: Session;
+  business: Business;
+  remove(id: number): any;
+}
 
 class LoyaltyCard extends Component<Props> {
-
-
-
-
   render() {
     return (
-      <div>
-        <div style={{display: 'flex', justifyContent: 'center'}}>
-          <Typography>{`Welcome, ${this.props.session.user?.firstName}`}</Typography>
-          <img
-            src='/img/line-dog.png'
-            alt='dog drawing'
-            style={{ height: "200px", marginBottom: '80px' }}
-          />
-        </div>
-        <Grid container style={{ height: "30vh" }}>
-          <Grid
-            md={12}
-            style={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-            }}
-          >
-            <Card style={{ margin: "10px", marginRight: '100px' }}>
-                <CardContent style={{ padding: "40px" }}>
-                  
-                  
-                  <Typography variant='subtitle1' gutterBottom color='primary'>
-                  <span style={{fontWeight: 'bolder'}}>Hi super smart Business Owner!</span> Are you ready to create a seamless customer loyalty program for your business? Click 'Register as a Business' to get started!
-                  </Typography>
-                  <div>
-                  <Link to='/register-business' style={{ textDecoration: "none" }}>
-              <Button variant='contained' color='primary' size='large' style={{ marginTop: '30px'}}>
-                Register as a Business
+      <Card style={{ marginRight: "20px", marginTop: "30px", width: "450px" }}>
+        <CardContent style={{ padding: "30px" }}>
+          <div>
+            <Typography variant='h5' color='primary'>
+              {this.props.business.name}
+              <Button
+                style={{ marginLeft: "20px" }}
+                onClick={() =>
+                  this.props.remove(this.props.business?.memberships?.id ?? 0)
+                }
+              >
+                <IconButton aria-label='delete' >
+                  <DeleteOutlineIcon />
+                </IconButton>
               </Button>
-            </Link>
-                  </div>
-                  
-                </CardContent>
-              </Card>
-            
-            <Divider orientation='vertical' flexItem />
-            <Card style={{ margin: "10px", marginLeft: '100px' }}>
-                <CardContent style={{ padding: "40px" }}>
-                  
-                  <Typography variant='subtitle1' gutterBottom color='primary'>
-                    <span style={{fontWeight: 'bolder'}}>Hey there savvy shopper!</span> Do you want to start using the loYOUlty rewards program for your favorite local business? Click 'Register as a Customer' to get started!
-                  </Typography>
-                  <Link to='/register-customer' style={{ textDecoration: "none" }}>
-              <Button variant='contained' color='primary' size='large' style={{ marginTop: '30px'}}>
-                Register as a Customer
-              </Button>
-            </Link>
-                </CardContent>
-              </Card>
-            
-          </Grid>
+            </Typography>
+          </div>
+          <Typography variant='h6' gutterBottom>
+            {this.props.business.loyalty_program?.name}
+          </Typography>
+          <Typography gutterBottom>
+            You have {this.props.business.memberships?.numPunches} punches
+          </Typography>
 
-
-        </Grid>
-
-        <Link to='/' style={{ textDecoration: "none", display: 'flex', justifyContent: 'center', marginTop: '80px' }}>
-              <Button variant='outlined' color='primary' size='large'>
-                Return to Home
-              </Button>
-            </Link>
-
-        
-        
-      </div>
+          <Typography>
+            Total punches needed for next reward:{" "}
+            {this.props.business.loyalty_program?.numOfPunches}
+          </Typography>
+        </CardContent>
+      </Card>
     );
   }
 }
