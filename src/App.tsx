@@ -4,7 +4,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import './App.css';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
@@ -13,7 +13,7 @@ import RegisterBusiness from './components/RegisterBusiness';
 import { Container } from '@material-ui/core';
 import RegisterCustomer from './components/RegisterCustomer';
 import Login from './components/Login';
-import { User, Session } from './models/models';
+import { Session } from './models/models';
 import BusinessDashboard from './components/BusinessDashboard';
 import CustomerDashboard from './components/CustomerDashboard';
 import LoyaltyForm from './components/LoyaltyForm';

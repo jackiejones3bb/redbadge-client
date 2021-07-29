@@ -1,11 +1,5 @@
-import { Button, Divider, TypographyVariant } from "@material-ui/core";
-import React, { Component } from "react";
+import { Component } from "react";
 import { Typography } from "@material-ui/core";
-import { Grid } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import { Link } from "react-router-dom";
 import { Business, Customer, Session } from "../models/models";
 import APIURL from "../lib/environment";
 import BusinessCard from "./BusinessCard";
@@ -105,7 +99,7 @@ class CustomerDashboard extends Component<Props, InitialState> {
             {`Hello, ${this.state?.customer?.user?.firstName} ${this.state?.customer?.user?.lastName}!`}
           </Typography>
           <Typography variant='h5' style={{ marginTop: "50px" }}>
-            You're currently enrolled in the following loyalty programs
+            You're currently enrolled in the following loyalty programs:
           </Typography>
           <div style={{ display: "flex" }}>
             {this.state?.customer &&
@@ -122,7 +116,7 @@ class CustomerDashboard extends Component<Props, InitialState> {
         </div>
         <div>
           <Typography variant='h5' style={{ marginTop: "70px" }}>
-            All Available Loyalty Programs
+            All Available Loyalty Programs:
           </Typography>
           <div style={{ display: "flex" }}>
             {this.state?.businesses &&

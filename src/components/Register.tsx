@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { Typography } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import { Link } from "react-router-dom";
 
@@ -32,7 +31,7 @@ class Register extends Component {
                   
                   
                   <Typography variant='subtitle1' gutterBottom color='primary'>
-                  <span style={{fontWeight: 'bolder'}}>Hi super smart Business Owner!</span> Are you ready to create a seamless customer loyalty program for your business? Click 'Register as a Business' to get started!
+                  <span style={{fontWeight: 'bolder'}}>Hi super smart business owner!</span> Are you ready to create a seamless customer loyalty program for your business? Click 'Register as a Business' to get started!
                   </Typography>
                   <div>
                   <Link to='/register-business' style={{ textDecoration: "none" }}>

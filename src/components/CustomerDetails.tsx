@@ -1,11 +1,9 @@
-import { Button, MenuItem, TextField } from "@material-ui/core";
-import React, { Component } from "react";
+import { Button } from "@material-ui/core";
+import { Component } from "react";
 import { Typography } from "@material-ui/core";
-import * as yup from "yup";
-import { Formik, FormikProps, Form, Field, ErrorMessage } from "formik";
 import { Paper } from "@material-ui/core";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
-import { Customer, Membership, rewardTypes, Session } from "../models/models";
+import { Customer, Membership, Session } from "../models/models";
 import APIURL from "../lib/environment";
 
 interface InitialState {

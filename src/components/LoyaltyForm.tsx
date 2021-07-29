@@ -1,8 +1,8 @@
 import { Button, MenuItem, TextField } from "@material-ui/core";
-import React, { Component } from "react";
+import { Component } from "react";
 import { Typography } from "@material-ui/core";
 import * as yup from "yup";
-import { Formik, FormikProps, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import { Paper } from "@material-ui/core";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { rewardTypes, Session } from "../models/models";
@@ -43,7 +43,7 @@ class LoyaltyForm extends Component<Props, InitialState> {
     };
   }
 
-  handleSubmit = (values: any, { props = this.props, setSubmitting }: any) => {
+  handleSubmit = (values: any, { setSubmitting }: any) => {
 
 const url = values.id > 0 ? `${APIURL}/programs/${values.id}` : `${APIURL}/programs`
 const method = values.id > 0 ? 'PUT' : 'POST'
@@ -122,7 +122,7 @@ const method = values.id > 0 ? 'PUT' : 'POST'
             onSubmit={this.handleSubmit}
             render={(formProps) => {
               const {
-                values: { name, numOfPunches, rewardType, rewardAmount, id },
+                values: { name, numOfPunches, rewardType, rewardAmount },
                 errors,
                 touched,
                 handleChange,

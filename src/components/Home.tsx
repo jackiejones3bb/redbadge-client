@@ -1,9 +1,8 @@
 import { Button } from "@material-ui/core";
-import React, { Component } from "react";
+import { Component } from "react";
 import { Typography } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import { Link } from "react-router-dom";
 
@@ -60,11 +59,13 @@ class Home extends Component {
             >
               <Card style={{ margin: "10px" }}>
                 <CardContent style={{ padding: "40px" }}>
-                  <img
-                    src='img/tag.png'
-                    alt='loyalty tag'
-                    style={{ height: "100px", marginBottom: '40px' }}
-                  />
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <img
+                      src='img/tag.png'
+                      alt='loyalty tag'
+                      style={{ height: "100px", marginBottom: "40px" }}
+                    />
+                  </div>
                   <Typography variant='subtitle1' gutterBottom color='primary'>
                     Business Owners can easily create and manage customer loyaly
                     programs online. Customize your loyalty programs to meet the
@@ -80,13 +81,17 @@ class Home extends Component {
             >
               <Card style={{ margin: "10px" }}>
                 <CardContent style={{ padding: "40px" }}>
+                    <div style={{ display: "flex", justifyContent: "center" }}>
                   <img
                     src='img/phone.png'
                     alt='phone'
-                    style={{ height: "100px", marginBottom: '40px' }}
+                    style={{ height: "100px", marginBottom: "40px" }}
                   />
+                  </div>
                   <Typography variant='subtitle1' gutterBottom color='primary'>
-                    No more clutter. Ditch the old paper punch cards that you can never find at the bottom of your purse or stuffed in your wallet. LoYOUlty is completely online!
+                    No more clutter. Ditch the old paper punch cards that you
+                    can never find at the bottom of your purse or stuffed in
+                    your wallet. LoYOUlty is completely online!
                   </Typography>
                 </CardContent>
               </Card>
@@ -98,13 +103,17 @@ class Home extends Component {
             >
               <Card style={{ margin: "10px" }}>
                 <CardContent style={{ padding: "40px" }}>
+                <div style={{ display: "flex", justifyContent: "center" }}>
                   <img
                     src='img/heart.png'
                     alt='heart in hand'
-                    style={{ height: "100px", marginBottom: '40px' }}
+                    style={{ height: "100px", marginBottom: "40px" }}
                   />
+                  </div>
                   <Typography variant='subtitle1' gutterBottom color='primary'>
-                    Customers can sign up and track their rewards for all of their participating favorite local businesses. Know exactly when it's time to redeem your rewards for savings.
+                    Customers can sign up and track their rewards for all of
+                    their participating favorite local businesses. Know exactly
+                    when it's time to redeem your rewards for savings.
                   </Typography>
                 </CardContent>
               </Card>

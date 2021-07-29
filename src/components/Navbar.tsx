@@ -1,10 +1,9 @@
 import { Button } from "@material-ui/core";
-import React, { Component } from "react";
+import { Component } from "react";
 import { withStyles, Theme, WithStyles } from '@material-ui/core/styles';
 import { AppBar } from "@material-ui/core";
 import { Toolbar } from "@material-ui/core";
 import { Session } from "../models/models";
-import { updateAsExpression } from "typescript";
 import { Link } from "react-router-dom";
 
 
