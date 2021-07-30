@@ -151,13 +151,7 @@ class CustomerDetails extends Component<Props, InitialState> {
               </Button>
             </Link>
             </div>
-            <div>
-            <Link to='/business/dashboard' style={{ textDecoration: "none", display: 'flex', justifyContent: 'center', marginTop: '40px' }}>
-              <Button variant='outlined' color='primary' size='large'>
-                Return to home
-              </Button>
-            </Link>
-            </div>
+            
           </div>
         </Paper>
       </div>

@@ -82,7 +82,7 @@ render() {
     <div>
       <Navbar session={this.state} clearSession={this.clearSession} />
       <Switch>
-      <Container style={{marginTop: 250}} >
+      <Container style={{marginTop: 200}} >
         <Route path='/' exact component={Home} />
         <Route path='/login' component={() => <Login updateSession={this.updateSession} /> } />
         <Route path='/register' component={Register} />

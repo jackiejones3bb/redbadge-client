@@ -1,4 +1,4 @@
-import { Button, Divider } from "@material-ui/core";
+import { Divider } from "@material-ui/core";
 import { Component } from "react";
 import { Typography } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
@@ -127,19 +127,7 @@ class BusinessDashboard extends Component<Props, Business> {
           </Grid>
         </Grid>
 
-        <Link
-          to='/'
-          style={{
-            textDecoration: "none",
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "80px",
-          }}
-        >
-          <Button variant='outlined' color='primary' size='large'>
-            Return to Home
-          </Button>
-        </Link>
+        
       </div>
     );
   }
