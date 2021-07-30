@@ -90,8 +90,8 @@ render() {
         <Route path='/register-customer' component={() => <RegisterCustomer updateSession={this.updateSession} /> } />
         <Route path='/business/dashboard' component={() => this.protectedView('business-dashboard', 'business')} />
         <Route path='/business/loyalty-form/:id' component={() => this.protectedView('loyalty-form', 'business')} />
-        <Route path='/customer/dashboard' component={() => this.protectedView('customer-dashboard', 'customer')} />
-        <Route path='/customer/search' component={() => this.protectedView('customer-search', 'business')} />
+        <Route path='/customer/dashboard' exact component={() => this.protectedView('customer-dashboard', 'customer')} />
+        <Route path='/customer/search' exact component={() => this.protectedView('customer-search', 'business')} />
         <Route path='/business/customer-details/:id' component={() => this.protectedView('customer-details', 'business')} />
         </Container>
       </Switch>
