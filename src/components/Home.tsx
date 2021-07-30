@@ -50,7 +50,7 @@ class Home extends Component {
           </Grid>
         </Grid>
 
-        <div style={{ marginTop: "200px" }}>
+        <div style={{ marginTop: "150px" }}>
           <Grid container>
             <Grid
               style={{ display: "flex", justifyContent: "center" }}
