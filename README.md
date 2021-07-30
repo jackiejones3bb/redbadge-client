@@ -43,13 +43,6 @@
     GET /:id                    => Get customer by ID
     GET /                       => Get all customers for business
     
- ### RewardTracking: ~/rewards
-    GET /                       => Get rewards
-    GET /:id                    => Get rewards by userID
-    POST /add-punch             => Add punch
-    DELETE /delete-punch/:id    => Delete punch
-    GET /reward-status/:id      => Get reward status by ID
-    
 ### Membership: ~/memberships
     DELETE/:id                  => Delete membership
     POST/                       => Add membership
