@@ -5,7 +5,6 @@ import {
   Switch,
 } from 'react-router-dom';
 import { Component } from 'react';
-import './App.css';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Register from './components/Register';
