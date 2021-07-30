@@ -106,7 +106,7 @@ class SearchCustomer extends Component<Props, InitialState> {
                     >
                       Search
                     </Button>
-                    <Link to='/' style={{ textDecoration: "none" }}>
+                    <Link to='/business/dashboard' style={{ textDecoration: "none" }}>
                       <Button
                         size='large'
                         type='submit'
